@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import "./styles.css";
+import "./resources/styles.css";
 
 function App() {
   return (
