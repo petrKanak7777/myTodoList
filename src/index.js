@@ -1,16 +1,30 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import { render } from "react-dom";
+import { Provider } from "react-redux";
+import { createStore } from "redux";
+import rootReducer from "./reducers";
+import App from "./components/App";
 
-import "./resources/styles.css";
+import "./resources/css/styles.css";
 
-function App() {
-  return (
-    <div className="App">
-      <h1>Hello CodeSandbox</h1>
-      <h2>Start editing to see some magic happen!</h2>
-    </div>
-  );
-}
+export const store = createStore(rootReducer);
 
-const rootElement = document.getElementById("root");
-ReactDOM.render(<App />, rootElement);
+console.log(store.getState());
+
+const unsubscribe = store.subscribe(() => console.log(store.getState()));
+
+render(
+  /* JSX - syntactic sugar for 
+             React.createElement(component, props, ...children) fun */
+  /*<Provider store={store}>
+      <App />
+  </Provider>,*/
+
+  React.createElement(
+    Provider,
+    { key: "provider", store: store },
+    React.createElement(App, { key: "app" }, null)
+  ),
+
+  document.getElementById("root")
+);
